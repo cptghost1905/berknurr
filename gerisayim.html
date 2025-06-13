@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Geri Sayım</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-color: #fff0f5;
+    }
+
+    h1 {
+      font-size: 42px;
+      color: #c2185b;
+      text-align: center;
+      margin-top: 130px;
+    }
+
+    p {
+      font-size: 26px;
+      color: #6a1b9a;
+      text-align: center;
+    }
+
+    .hearts-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      background: linear-gradient(to bottom, #ffe4ec, #fff);
+      overflow: hidden;
+    }
+
+    .heart {
+      width: 20px;
+      height: 20px;
+      background: pink;
+      position: absolute;
+      top: -20px;
+      animation: fall 10s linear infinite;
+      opacity: 0.8;
+      clip-path: polygon(50% 0%, 100% 30%, 75% 100%, 50% 80%, 25% 100%, 0% 30%);
+    }
+
+    /* Daha fazla kalp için 12 tane ayarlandı */
+    .heart:nth-child(1) { left: 5%; animation-delay: 0s; }
+    .heart:nth-child(2) { left: 15%; animation-delay: 1s; }
+    .heart:nth-child(3) { left: 25%; animation-delay: 2s; }
+    .heart:nth-child(4) { left: 35%; animation-delay: 3s; }
+    .heart:nth-child(5) { left: 45%; animation-delay: 4s; }
+    .heart:nth-child(6) { left: 55%; animation-delay: 5s; }
+    .heart:nth-child(7) { left: 65%; animation-delay: 6s; }
+    .heart:nth-child(8) { left: 75%; animation-delay: 7s; }
+    .heart:nth-child(9) { left: 85%; animation-delay: 8s; }
+    .heart:nth-child(10) { left: 95%; animation-delay: 9s; }
+    .heart:nth-child(11) { left: 50%; animation-delay: 4.5s; }
+    .heart:nth-child(12) { left: 30%; animation-delay: 6.5s; }
+
+    @keyframes fall {
+      0% { top: -20px; transform: scale(1); }
+      100% { top: 100%; transform: scale(1.5); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Anasayfa</a></li>
+        <li><a href="notlar.html">Notlar</a></li>
+        <li><a href="fotograflar.html">Fotoğraflar</a></li>
+        <li><a href="gerisayim.html">Geri Sayım</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <h1>Birlikte Geçen Günlerimiz 💞</h1>
+  <p>Bugün ile 17.12.2023 arasında <span id="day-count"></span> gün geçti 💗</p>
+
+  <div class="hearts-background">
+    <div class="heart"></div><div class="heart"></div><div class="heart"></div>
+    <div class="heart"></div><div class="heart"></div><div class="heart"></div>
+    <div class="heart"></div><div class="heart"></div><div class="heart"></div>
+    <div class="heart"></div><div class="heart"></div><div class="heart"></div>
+  </div>
+
+  <script>
+    const startDate = new Date("2023-12-17");
+    const today = new Date();
+    const difference = today - startDate;
+    const daysPassed = Math.floor(difference / (1000 * 60 * 60 * 24));
+    document.getElementById("day-count").innerText = daysPassed;
+  </script>
+</body>
+</html>

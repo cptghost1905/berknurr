@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Berk Nur</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      background-color: #fff0f5;
+    }
+    #password-screen {
+      text-align: center;
+      margin-top: 150px;
+    }
+    #password-input {
+      padding: 10px;
+      font-size: 18px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin-left: 10px;
+    }
+    nav {
+      background: #f8f8f8;
+      padding: 10px 0;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    nav button {
+      background: none;
+      border: none;
+      font-weight: bold;
+      font-size: 18px;
+      margin: 0 15px;
+      cursor: pointer;
+      color: #000;
+    }
+    nav button.active {
+      color: #c2185b;
+      text-decoration: underline;
+    }
+    .content {
+      display: none;
+      max-width: 900px;
+      margin: auto;
+      padding: 0 20px 60px;
+    }
+    .content.active {
+      display: block;
+    }
+    /* Ana sayfa fotoğraflar */
+    .gallery-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 500px;
+      margin-top: 20px;
+    }
+    .photo-card {
+      position: absolute;
+      width: 250px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 15px;
+    }
+    .top-center {
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .left-center {
+      top: 50%;
+      left: 10%;
+      transform: translateY(-50%);
+    }
+    .right-center {
+      top: 50%;
+      right: 10%;
+      transform: translateY(-50%);
+    }
+    .photo-card img {
+      width: 100%;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    .photo-note {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #444;
+    }
+    .welcome-message {
+      text-align: center;
+      margin-top: 60px;
+      font-family: 'Great Vibes', cursive;
+      font-size: 38px;
+      color: #c2185b;
+    }
+    /* Fotoğraflar sayfası */
+    .gallery-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+      gap: 20px;
+      padding: 0 20px;
+    }
+    .gallery-list .photo-card {
+      position: static;
+      width: 100%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      padding: 10px;
+    }
+    .gallery-list .photo-card img {
+      max-width: 100%;
+      height: auto;
+    }
+    .comment-box textarea {
+      width: 100%;
+      height: 70px;
+      resize: vertical;
+      font-size: 14px;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      margin-top: 8px;
+    }
+    /* Notlar sayfası */
+    .notes-container {
+      padding: 0 20px;
+    }
+    .note-box {
+      margin-bottom: 20px;
+    }
+    .note-box textarea {
+      width: 100%;
+      min-height: 100px;
+      font-size: 16px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+    /* Geri sayım sayfası */
+    .countdown {
+      text-align: center;
+      margin-top: 100px;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      color: #c2185b;
+    }
+    .countdown h1 {
+      font-size: 42px;
+      margin-bottom: 20px;
+    }
+    .countdown p {
+      font-size: 26px;
+      color: #6a1b9a;
+    }
+
+    /* Kalplerin gelişmiş hali */
+    .hearts-background {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      background: linear-gradient(to bottom, #ffe4ec, #fff);
+      overflow: hidden;
+    }
+
+    .heart {
+      position: absolute;
+      top: -40px;
+      width: 20px;
+      height: 20px;
+      background: transparent;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      opacity: 0.8;
+      filter: drop-shadow(0 0 2px #f06292);
+      will-change: transform, opacity;
+    }
+
+    .heart svg {
+      width: 100%;
+      height: 100%;
+      fill: #f06292;
+    }
+
+    .heart:nth-child(n) {
+      left: calc( (var(--i) * 2) % 100 * 1%);
+      animation-duration: calc(4s + (var(--i) * 0.1s));
+      animation-delay: calc(var(--i) * -0.1s);
+      animation-timing-function: ease-in-out;
+      animation-direction: alternate;
+    }
+
+    .heart:nth-child(odd) {
+      width: 15px;
+      height: 15px;
+      opacity: 0.6;
+    }
+
+    .heart:nth-child(even) {
+      width: 25px;
+      height: 25px;
+      opacity: 1;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateX(0) translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(calc(var(--x) * 20px)) translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="password-screen">
+    <h2>Şifreyi Gir:</h2>
+    <input type="password" id="password-input" placeholder="Şifre" oninput="autoSubmit()">
+    <button onclick="checkPassword()">Giriş Yap</button>
+  </div>
+
+  <nav id="menu" style="display:none;">
+    <button data-page="home" class="active">Anasayfa</button>
+    <button data-page="notes">Notlar</button>
+    <button data-page="photos">Fotoğraflar</button>
+    <button data-page="countdown">Geri Sayım</button>
+  </nav>
+
+  <div id="home" class="content">
+    <div class="gallery-container">
+      <div class="photo-card top-center">
+        <img src="images/foto1.jpg" alt="1">
+        <div class="photo-note"> Baskın fotoğrafı 💖</div>
+      </div>
+      <div class="photo-card left-center">
+        <img src="images/foto2.jpg" alt="2">
+        <div class="photo-note">Havalı bir fotoğraf 😄</div>
+      </div>
+      <div class="photo-card right-center">
+        <img src="images/foto3.jpg" alt="3">
+        <div class="photo-note">Tatlı Sıradan Bir Anımız 💫</div>
+      </div>
+    </div>
+    <div class="welcome-message">💖 Sitemize Hoşgeldin Aşkım 💖</div>
+  </div>
+
+  <div id="notes" class="content">
+    <div class="notes-container">
+      <div class="note-box"><textarea placeholder="Seni"></textarea></div>
+      <div class="note-box"><textarea placeholder="Her geçen gün"></textarea></div>
+      <div class="note-box"><textarea placeholder="Daha Çok Sevmeye Devam Edeceğim"></textarea></div>
+    </div>
+  </div>
+
+  <div id="photos" class="content">
+    <div class="gallery-list" id="photo-gallery"></div>
+  </div>
+
+  <div id="countdown" class="content">
+    <div class="countdown">
+      <h1>💞 Birlikte Geçen Günlerimiz 💞</h1>
+      <p>Sana İlk Aşık Olduğum Günden Bugüne <span id="day-count"></span> gün geçti 💗</p>
+    </div>
+  </div>
+
+  <div class="hearts-background" aria-hidden="true"></div>
+
+  <script>
+    // Şifre kontrolü
+    function checkPassword() {
+      const password = document.getElementById("password-input").value.trim();
+      if (password === "171223") {
+        document.getElementById("password-screen").style.display = "none";
+        document.getElementById("menu").style.display = "block";
+        document.querySelectorAll(".content").forEach(c => c.style.display = "none");
+        document.getElementById("home").style.display = "block";
+        startHearts();  // Kalpler başlasın
+      } else {
+        alert("Şifre yanlış. 😢");
+      }
+    }
+
+    // Şifre otomatik kontrol
+    function autoSubmit() {
+      const password = document.getElementById("password-input").value.trim();
+      if (password.length === 6) {
+        checkPassword();
+      }
+    }
+
+    // Menü tıklama işlemleri
+    document.getElementById("menu").addEventListener("click", function(e) {
+      if(e.target.tagName === "BUTTON") {
+        const page = e.target.getAttribute("data-page");
+
+        document.querySelectorAll("#menu button").forEach(btn => btn.classList.remove("active"));
+        e.target.classList.add("active");
+
+        document.querySelectorAll(".content").forEach(c => c.style.display = "none");
+        document.getElementById(page).style.display = "block";
+      }
+    });
+
+    // Fotoğraf galerisini oluştur
+    const photoGallery = document.getElementById("photo-gallery");
+    for(let i = 1; i <= 12; i++) {
+      const div = document.createElement("div");
+      div.className = "photo-card";
+      div.innerHTML = `
+        <img src="images/foto${i}.jpg" alt="Fotoğraf ${i}">
+        <div class="photo-note">Fotoğraf ${i}</div>
+        <div class="comment-box"><textarea placeholder="Yorumun..."></textarea></div>
+      `;
+      photoGallery.appendChild(div);
+    }
+
+    // Kalpleri oluştur ve animasyon başlat
+    const heartsContainer = document.querySelector('.hearts-background');
+    let heartsInterval;
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      const i = Math.floor(Math.random() * 1000);
+      heart.style.setProperty('--i', i);
+      heart.style.setProperty('--x', (Math.random() * 2 - 1).toFixed(2));
+      heart.innerHTML = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
+                 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09
+                 C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5
+                 c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+      </svg>`;
+      heartsContainer.appendChild(heart);
+
+      // Kalbi animasyon sonunda silmek için süre hesapla
+      const duration = 4 + Math.random() * 2;
+      setTimeout(() => {
+        heart.remove();
+      }, duration * 1000);
+    }
+
+    function startHearts() {
+      heartsInterval = setInterval(createHeart, 100);
+    }
+
+    function stopHearts() {
+      clearInterval(heartsInterval);
+    }
+
+    // Geri sayım hesaplama
+    function updateCountdown() {
+      const startDate = new Date("2023-12-17");
+      const today = new Date();
+      const diff = today - startDate;
+      const days = Math.floor(diff / (1000*60*60*24));
+      document.getElementById("day-count").innerText = days;
+    }
+    updateCountdown();
+  </script>
+</body>
+</html>

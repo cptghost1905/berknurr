@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notlar</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .note-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 20px;
+      padding: 120px 30px 30px;
+    }
+
+    .note-card {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    .note-textarea {
+      width: 100%;
+      height: 150px;
+      font-size: 16px;
+      padding: 10px;
+      resize: vertical;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    header nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: left;
+      padding: 10px;
+      background: #f8f8f8;
+      margin: 0;
+    }
+
+    header nav ul li {
+      margin-right: 20px;
+      font-weight: bold;
+    }
+
+    header nav ul li a {
+      text-decoration: none;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Anasayfa</a></li>
+        <li><a href="notlar.html">Notlar</a></li>
+        <li><a href="fotograflar.html">Fotoğraflar</a></li>
+        <li><a href="gerisayim.html">Geri Sayım</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="note-container">
+    <!-- Not Kartları -->
+    <div class="note-card">
+      <textarea class="note-textarea" placeholder="Bugün seninle yaşadığımız en güzel an..."></textarea>
+    </div>
+
+    <div class="note-card">
+      <textarea class="note-textarea" placeholder="Sana içimden geçenleri yazmak istiyorum..."></textarea>
+    </div>
+
+    <div class="note-card">
+      <textarea class="note-textarea" placeholder="Bana hissettirdiklerin 💌"></textarea>
+    </div>
+  </div>
+</body>
+</html>

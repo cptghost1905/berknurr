@@ -1,0 +1,39 @@
+.hearts-background {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  background: linear-gradient(to bottom, #ffe4ec, #fff);
+  overflow: hidden;
+}
+
+.heart {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: pink;
+  clip-path: polygon(50% 0%, 100% 30%, 75% 100%, 50% 80%, 25% 100%, 0% 30%);
+  opacity: 0.8;
+  animation-name: fall, sway, fadeOut;
+  animation-timing-function: linear, ease-in-out, linear;
+  animation-iteration-count: infinite, infinite, 1;
+  animation-duration: 8s, 4s, 8s;
+  animation-fill-mode: forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes fall {
+  0% { transform: translateY(-30px) translateX(0) scale(1); opacity: 1; }
+  100% { transform: translateY(110vh) translateX(50px) scale(1.5); opacity: 0; }
+}
+
+@keyframes sway {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(20px); }
+}
+
+@keyframes fadeOut {
+  0%, 90% { opacity: 1; }
+  100% { opacity: 0; }
+}
